@@ -1,0 +1,74 @@
+version: '3.9'
+
+# ── Phase 6 Docker Compose Stub ──────────────────────────────────────────────
+# Docker implementation will be wired in Phase 6.
+# This file provides the service structure for reference.
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: smart_inventory
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-gateway:
+    build: ../api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:8001
+      - INVENTORY_SERVICE_URL=http://inventory-service:8002
+      - AI_SERVICE_URL=http://ai-service:8003
+    depends_on:
+      - auth-service
+      - inventory-service
+      - ai-service
+
+  auth-service:
+    build: ../auth-service
+    ports:
+      - "8001:8001"
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=smart_inventory_auth
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  inventory-service:
+    build: ../inventory-service
+    ports:
+      - "8002:8002"
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=smart_inventory_products
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  ai-service:
+    build: ../ai-service
+    ports:
+      - "8003:8003"
+    depends_on:
+      - inventory-service
+
+  frontend:
+    build: ../frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api-gateway
+
+volumes:
+  mysql_data:

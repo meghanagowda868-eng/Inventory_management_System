@@ -1,0 +1,10 @@
+INFO:     Will watch for changes in these directories: ['D:\\PROJECTS\\Smart Inventory Management System\\ai-service']
+INFO:     Uvicorn running on http://0.0.0.0:8003 (Press CTRL+C to quit)
+INFO:     Started reloader process [30464] using WatchFiles
+INFO:     Started server process [932]
+INFO:     Waiting for application startup.
+2026-07-31 16:15:02 | INFO     | ai_service | Pre-warming demand prediction model...
+2026-07-31 16:15:02 | INFO     | ai_service.ml | Training demand prediction model...
+2026-07-31 16:15:03 | INFO     | ai_service.ml | Demand model trained on 15 samples.
+2026-07-31 16:15:03 | INFO     | ai_service | AI Service ready.
+INFO:     Application startup complete.

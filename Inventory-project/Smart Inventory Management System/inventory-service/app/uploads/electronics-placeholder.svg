@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Electronics product placeholder">
+  <rect width="640" height="480" fill="#10243e"/>
+  <rect x="120" y="90" width="400" height="250" rx="18" fill="#1b4d73"/>
+  <circle cx="320" cy="215" r="62" fill="#56c7d9"/>
+  <path d="M286 215h68M320 181v68" stroke="#10243e" stroke-width="14" stroke-linecap="round"/>
+  <text x="320" y="402" text-anchor="middle" fill="#f4f7fb" font-family="Arial, sans-serif" font-size="28">Electronics</text>
+</svg>
